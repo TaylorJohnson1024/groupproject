@@ -44,7 +44,7 @@ public class Input {
 			System.exit(0);
 	}
 
-	public File getInFile() {
+	public File getFile() {
 		return inFile;
 	}
 }
