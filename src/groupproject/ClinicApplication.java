@@ -13,10 +13,10 @@ import org.json.simple.JSONArray;
  * if there is not already a patient with a matching id.
  * 
  * @GroupName:					The Lucky Seven
- * @MainClassAuthor:                            Christopher Neuman
- * @InputAuthor: 				Taylor Johnson
- * @PatientAuthor: 				Jacob Fulton
- * @ExportAllReadingsAuthor:                    Zinet Kemal
+ * @MainClass Author:           Christopher Neuman
+ * @Input Author: 				Taylor Johnson
+ * @Patient Author: 			Jacob Fulton
+ * @Output Author:              Zinet Kemal
  * 
  */
 public class ClinicApplication {
@@ -57,8 +57,9 @@ public class ClinicApplication {
     	}
         
         //export all readings 
-        ExportAllReadings out = new ExportAllReadings("output.json");
-        out.parseJSONAndExportAllReadings(in.getJSONArray());
+        Output output = new Output("output.json");
+        output.parseJSONAndExportAllReadings(in.getJSONArray());
+        output.displayPatientReadings(in.getJSONArray());
     }
     
     /**
