@@ -24,14 +24,10 @@ import org.json.simple.parser.ParseException;
  * @see www.geeksforgeeks.org/parse-json-java/
  */
 public class Input {
-	//private String path;
-	private FileReader readFile;
-	private JSONParser jsonParser;
-	private JSONObject selectedJSONObject;
-	private JSONArray selectedJSONArray;
+	private File inFile;
 
 	/**
-	 * Constructor method for Input. Creates the JFileChooser and the JSONObject.
+	 * Constructor method for Input. Creates the JFileChooser and stores the selected file.
 	 */
 	public Input() {
 		// Create and open JFileChooser
@@ -40,47 +36,15 @@ public class Input {
 		// forces filechooser to use the user directory that launched the chooser
 		fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
 		fc.showOpenDialog(null);
-		File inFile = fc.getSelectedFile();
 
-		if (inFile != null) {
-			// Reads and parses the file from the path provided
-			try {
-				this.readFile = new FileReader(inFile);
-				this.jsonParser = new JSONParser();
-			} catch (FileNotFoundException ex) {
-				Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
-			}
+		this.inFile = fc.getSelectedFile();
 
-			// Turns contents of JSON file into a JSONObject
-			try {
-				this.selectedJSONObject = (JSONObject) jsonParser.parse(readFile);
-			} catch (IOException | ParseException ex) {
-				Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
-			}
-			
-		}
-		else
+		// if there is no file selected, then exit gracefully
+		if (inFile == null)
 			System.exit(0);
 	}
 
-	/**
-	 * Get the JSONObject from the file selected.
-	 * 
-	 * @return JSONObject from file selected
-	 */
-	public JSONObject getJSONObject() {
-		// System.out.println(selectedJSONObject.toString());
-		return selectedJSONObject;
-	}
-
-	/**
-	 * Get the main JSONArray from the file selected.
-	 * 
-	 * @return JSONArray from file selected
-	 */
-	public JSONArray getJSONArray() {
-		this.selectedJSONArray = (JSONArray) selectedJSONObject.get("patient_readings");
-		// System.out.println(selectedJSONArray.toString());
-		return selectedJSONArray;
+	public File getFile() {
+		return inFile;
 	}
 }
