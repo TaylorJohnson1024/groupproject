@@ -5,6 +5,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,11 +22,11 @@ public class Parser {
     private FileReader reader;
     private JSONParser jsonParser;
     private JSONObject selectedJSONObject;
-    private JSONArray selectedJSONArray;
+    private Document selectedXMLDocument;
 
     /**
      *  Constructor for Parser.
-     *  Method intended to be used in conjunction with Input.
+     *  This constructor method is intended to be used in conjunction with Input.
      *
      * @param f File received from input
      */
@@ -65,8 +69,25 @@ public class Parser {
         }
     }
 
+    /**
+     *  Parses the file into an XML object called Document.
+     *
+     *  @see "https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/"
+     */
     private void parseXMLInput() {
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inFile);
 
+            // See link for normalization process
+            // https://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+            doc.getDocumentElement().normalize();
+            this.selectedXMLDocument = doc;
+        }
+        catch (Exception ex) {
+            Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -80,20 +101,29 @@ public class Parser {
 
     /**
      * Get the main JSONArray from the file selected.
-     * Specifics are made for "patient_readings"
      *
      * @return JSONArray from file selected
      */
-    public JSONArray getJSONArray() {
-        this.selectedJSONArray = (JSONArray) selectedJSONObject.get("patient_readings");
+    public JSONArray getJSONArray(String nameOfArray) {
+        JSONArray selectedJSONArray;
+        selectedJSONArray = (JSONArray) selectedJSONObject.get(nameOfArray);
         return selectedJSONArray;
+    }
+
+    /**
+     * Get the XML Document from the file selected.
+     *
+     * @return Document from the file selected
+     */
+    public Document getXMLDocument() {
+        return selectedXMLDocument;
     }
 
     /**
      * Parses inFile to retrieve the file type.
      * Ex. file named foobar.txt would return "txt"
      *
-     * @see https://stackoverflow.com/questions/3571223/how-do-i-get-the-file-extension-of-a-file-in-java/21974043
+     * @see "https://stackoverflow.com/questions/3571223/how-do-i-get-the-file-extension-of-a-file-in-java/21974043"
      * @return String of the fileType
      */
     private String parseFileType() {

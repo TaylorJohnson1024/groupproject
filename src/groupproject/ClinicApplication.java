@@ -39,8 +39,8 @@ public class ClinicApplication {
     
     /**
      * Instantiates new Input object,
-     * then gets a JSONArray from 
-     * Input. Each JSON object in
+     * sends file to parser and get
+     * JSONArray object. Each JSON object in
      * the JSONArray is traversed and
      * passed to addReading.
      * finally call parseJSONAndExportAllReadings method to export all readings
@@ -49,7 +49,7 @@ public class ClinicApplication {
     {
     	Input in = new Input();
     	Parser p = new Parser(in.getFile());
-    	JSONArray patientReadings = p.getJSONArray();
+    	JSONArray patientReadings = p.getJSONArray("patient_readings");
     	
     	for(Object rawReading: patientReadings)
     	{
@@ -59,8 +59,8 @@ public class ClinicApplication {
         
         //export all readings 
         Output output = new Output("output.json");
-        output.parseJSONAndExportAllReadings(in.getJSONArray());
-        output.displayPatientReadings(in.getJSONArray());
+        output.parseJSONAndExportAllReadings(p.getJSONArray("patient_readings"));
+        output.displayPatientReadings(p.getJSONArray("patient_readings"));
     }
     
     /**
