@@ -48,7 +48,8 @@ public class ClinicApplication {
     public static void getInputAndExportAllReadings() throws FileNotFoundException
     {
     	Input in = new Input();
-    	Parser p = new Parser(in.getFile());
+    	in.fileChooser();
+    	ParserJSON p = new ParserJSON(in.getFile());
     	JSONArray patientReadings = p.getJSONArray("patient_readings");
     	
     	for(Object rawReading: patientReadings)
