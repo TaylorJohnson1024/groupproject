@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="20fae733-7a73-4bc4-a68f-97ef02bc248c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/groupproject/groupproject/Patient.class" afterPath="$PROJECT_DIR$/out/production/groupproject/groupproject/Patient.class" />
-      <change beforePath="$PROJECT_DIR$/src/groupproject/ClinicApplication.fxml" afterPath="$PROJECT_DIR$/src/groupproject/ClinicApplication.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/groupproject/ClinicApplicationController.java" afterPath="$PROJECT_DIR$/src/groupproject/ClinicApplicationController.java" />
-      <change beforePath="$PROJECT_DIR$/src/groupproject/Reading.java" afterPath="$PROJECT_DIR$/src/groupproject/Reading.java" />
-      <change beforePath="$PROJECT_DIR$/src/groupproject/ReadingList.java" afterPath="$PROJECT_DIR$/src/groupproject/ReadingList.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -115,8 +110,8 @@
       <file leaf-file-name="ClinicApplicationController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/groupproject/ClinicApplicationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="680">
+              <caret line="40" column="49" lean-forward="true" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1618#1619#0" expanded="true" />
@@ -426,7 +421,14 @@
       <option name="project" value="LOCAL" />
       <updated>1521422867179</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Working GUI&#10;Added method to ?Main to initialize the GUI.&#10;Changes to reading: added patient id, and clinic&#10;Added ReadingList Class&#10;added ClinicApplicationController class">
+      <created>1521485346653</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1521485346653</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -911,8 +913,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/groupproject/ClinicApplicationController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="680">
+          <caret line="40" column="49" lean-forward="true" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1618#1619#0" expanded="true" />
