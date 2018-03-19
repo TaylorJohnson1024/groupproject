@@ -15,7 +15,7 @@ public class ReadingList {
     }
 
     //method to return the Observable List
-    public ObservableList<Reading> getReading() {
+    public ObservableList<Reading> getReadings() {
 
         return readings;
     }

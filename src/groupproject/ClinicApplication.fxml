@@ -39,10 +39,11 @@
                               <TableView fx:id="table" prefHeight="439.0" prefWidth="323.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                 <columns>
                                   <TableColumn fx:id="patientIDColumn" prefWidth="89.0" text="Patient ID" />
-                                    <TableColumn fx:id="readingColumn" prefWidth="101.0" text="Reading Type" />
-                                    <TableColumn fx:id="valueColumn" prefWidth="96.0" text="Reading Value" />
-                                    <TableColumn fx:id="clinicColumn" prefWidth="100.0" text="Clinic" />
-                                    <TableColumn fx:id="dateColumn" prefWidth="90.0" text="Date" />
+                                    <TableColumn fx:id="readingColumn" prefWidth="84.0" text="Reading Type" />
+                                    <TableColumn fx:id="valueColumn" prefWidth="91.0" text="Reading Value" />
+                                    <TableColumn fx:id="clinicColumn" prefWidth="60.0" text="Clinic" />
+                                    <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="65.0" text="Date" />
+                                    <TableColumn fx:id="readingIDColumn" prefWidth="96.0" text="Reading ID" />
                                 </columns>
                               </TableView>
                            </children>
@@ -70,12 +71,12 @@
                                     </HBox>
                                     <HBox alignment="CENTER" spacing="50.0">
                                        <children>
-                                          <TextField prefHeight="25.0">
+                                          <TextField fx:id="clinicField" prefHeight="25.0">
                                              <padding>
                                                 <Insets right="25.0" />
                                              </padding>
                                           </TextField>
-                                          <TextField prefHeight="25.0">
+                                          <TextField fx:id="patientIDField" prefHeight="25.0">
                                              <padding>
                                                 <Insets left="25.0" />
                                              </padding>
@@ -104,10 +105,10 @@
                                                 <Label text="Reading Type:" />
                                                 <VBox spacing="10.0">
                                                    <children>
-                                                      <RadioButton mnemonicParsing="false" text="Blood Pressure" />
-                                                      <RadioButton mnemonicParsing="false" text="Steps" />
-                                                      <RadioButton mnemonicParsing="false" text="Weight" />
-                                                      <RadioButton mnemonicParsing="false" text="Temperature" />
+                                                      <RadioButton fx:id="bloodPressureRButton" mnemonicParsing="false" text="Blood Pressure" />
+                                                      <RadioButton fx:id="stepsRButton" mnemonicParsing="false" text="Steps" />
+                                                      <RadioButton fx:id="weightRButton" mnemonicParsing="false" text="Weight" />
+                                                      <RadioButton fx:id="temperatureRButton" mnemonicParsing="false" text="Temperature" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -125,8 +126,8 @@
                                                       <Insets top="5.0" />
                                                    </padding>
                                                 </Label>
-                                                <TextField />
-                                                <Button mnemonicParsing="false" text="Add Reading" />
+                                                <TextField fx:id="readingValueField" />
+                                                <Button fx:id="addReadingButton" mnemonicParsing="false" onAction="#handleAddReadingButton" text="Add Reading" />
                                              </children>
                                              <opaqueInsets>
                                                 <Insets />
@@ -156,7 +157,7 @@
                         </SplitPane>
                         <Pane maxHeight="50.0" prefHeight="50.0" prefWidth="673.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label layoutX="311.0" layoutY="12.0" text="status" textFill="#000654">
+                              <Label fx:id="statusLabel" layoutX="311.0" layoutY="12.0" text="status" textFill="#000654">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font></Label>

@@ -2,6 +2,8 @@ package groupproject;
 
 import java.sql.Date;
 
+import java.util.Random;
+
 public class Reading {
 
 	private String patientID;
@@ -22,12 +24,28 @@ public class Reading {
 		setRDate(date);
 	}
 
+	/* A constructor that generates a random id instead of using
+	 * an already created ID.
+	 */
+	public Reading(String patientID, String clinic, String type, String value, Date date) {
+
+
+		setClinic(clinic);
+		setPatientID(patientID);
+		setRType(type);
+		this.rId = generateID();
+		setRValue(value);
+		setRDate(date);
+	}
+
 	/*
 	 * accepts date as a String of the millisecond time value instead of an already
 	 * instantiated Date Object.
 	 */
-	public Reading(String type, String id, String value, String date) {
+	public Reading(String patientID, String clinic,String type, String id, String value, String date) {
 
+		setClinic(clinic);
+		setPatientID(patientID);
 		setRType(type);
 		setRId(id);
 		setRValue(value);
@@ -96,6 +114,17 @@ public class Reading {
 	}
 
 	// =============================================================
+
+	//Used to generate a random reading id.
+	public String generateID(){
+		Random q = new Random();
+		String id = "";
+		String charBank = "abcdefghijklmnopqrstuvwxyz1234567890";
+		for (int i = 5; i > 0; i--){
+			id = id +(charBank.charAt(q.nextInt(charBank.length())));
+		}
+		return id;
+	}
 
 	public String toString() {
 		return "";
