@@ -18,10 +18,10 @@ import org.json.simple.parser.ParseException;
  * Object intended for retrieving a file.
  * 
  * @author Taylor Johnson
- * @see www.examples.javacodegeeks.com/core-java/json/java-json-parser-example/
- * @see www.geeksforgeeks.org/parse-json-java/
+ * @see //www.examples.javacodegeeks.com/core-java/json/java-json-parser-example/
+ * @see //www.geeksforgeeks.org/parse-json-java/
  */
-public class Input {
+	public class Input {
 	private File inFile;
     private String fileType;
 

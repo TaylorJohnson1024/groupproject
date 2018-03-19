@@ -1,15 +1,21 @@
-package test;
+package groupproject;
 
 import java.sql.Date;
 
 public class Reading {
 
-	String rType;
-	String rId;
-	String rValue;
-	Date rDate;
+	private String patientID;
+	private String clinic;
+	private String rType;
+	private String rId;
+	private String rValue;
+	private Date rDate;
 
-	public Reading(String type, String id, String value, Date date) {
+	public Reading(String patientID, String clinic, String type, String id, String value, Date date) {
+
+
+		setClinic(clinic);
+		setPatientID(patientID);
 		setRType(type);
 		setRId(id);
 		setRValue(value);
@@ -21,6 +27,7 @@ public class Reading {
 	 * instantiated Date Object.
 	 */
 	public Reading(String type, String id, String value, String date) {
+
 		setRType(type);
 		setRId(id);
 		setRValue(value);
@@ -28,6 +35,14 @@ public class Reading {
 	}
 
 	// =================================setters===================
+
+	public void setClinic(String clinic){
+		this.clinic = clinic;
+	}
+
+	public void setPatientID(String id) {
+		patientID = id;
+	}
 
 	public void setRType(String type) {
 		rType = type;
@@ -56,7 +71,15 @@ public class Reading {
 
 	// =================================getters===================
 
-	public String getRtype() {
+	public String getClinic(){
+		return clinic;
+	}
+
+	public String getPatientID() {
+		return patientID;
+	}
+
+	public String getRType() {
 		return rType;
 	}
 
