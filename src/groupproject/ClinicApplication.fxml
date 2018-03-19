@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -23,49 +24,26 @@
                <content>
                   <SplitPane dividerPositions="0.2867756315007429" prefHeight="451.0" prefWidth="673.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                      <AnchorPane maxWidth="200.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <VBox layoutX="45.0" layoutY="45.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox alignment="CENTER" layoutX="71.0" layoutY="138.0" maxWidth="200.0" prefWidth="200.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label fx:id="patientIDV" text="Patient ID">
-                                       <VBox.margin>
-                                          <Insets left="15.0" top="20.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <TextField alignment="CENTER">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <Label text="Clinic">
-                                       <VBox.margin>
-                                          <Insets left="15.0" top="50.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <TextField alignment="CENTER">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <Button mnemonicParsing="false" text="Enter">
-                                       <VBox.margin>
-                                          <Insets left="10.0" top="10.0" />
-                                       </VBox.margin>
-                                    </Button>
+                                    <Button mnemonicParsing="false" text="Import File" />
+                                    <Button mnemonicParsing="false" text="Export" />
                                  </children>
                               </VBox>
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <TableView prefHeight="439.0" prefWidth="323.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <TableView fx:id="table" prefHeight="439.0" prefWidth="323.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                 <columns>
-                                  <TableColumn prefWidth="89.0" sortable="false" text="Patient ID" />
-                                    <TableColumn prefWidth="101.0" sortable="false" text="Reading Type" />
-                                    <TableColumn prefWidth="96.0" sortable="false" text="Reading Value" />
-                                    <TableColumn prefWidth="49.0" sortable="false" text="Clinic" />
-                                    <TableColumn prefWidth="48.0" sortable="false" text="Date" />
-                                  <TableColumn prefWidth="92.0" sortable="false" text="Trial Status" />
+                                  <TableColumn fx:id="patientIDColumn" prefWidth="89.0" text="Patient ID" />
+                                    <TableColumn fx:id="readingColumn" prefWidth="84.0" text="Reading Type" />
+                                    <TableColumn fx:id="valueColumn" prefWidth="91.0" text="Reading Value" />
+                                    <TableColumn fx:id="clinicColumn" prefWidth="60.0" text="Clinic" />
+                                    <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="65.0" text="Date" />
+                                    <TableColumn fx:id="readingIDColumn" prefWidth="96.0" text="Reading ID" />
                                 </columns>
                               </TableView>
                            </children>
@@ -78,53 +56,108 @@
                <content>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Pane prefHeight="107.0" prefWidth="673.0" VBox.vgrow="ALWAYS">
+                        <AnchorPane>
                            <children>
-                              <TextField layoutX="118.0" layoutY="44.0" prefHeight="25.0">
-                                 <padding>
-                                    <Insets right="25.0" />
-                                 </padding></TextField>
-                              <TextField layoutX="387.0" layoutY="44.0" prefHeight="25.0">
-                                 <padding>
-                                    <Insets left="25.0" />
-                                 </padding></TextField>
-                              <Label layoutX="178.0" layoutY="14.0" text="Clinic">
-                                 <padding>
-                                    <Insets right="110.0" />
-                                 </padding></Label>
-                              <Label layoutX="391.0" layoutY="14.0" text="Patient ID">
-                                 <padding>
-                                    <Insets left="50.0" right="55.0" />
-                                 </padding></Label>
-                           </children></Pane>
+                              <VBox alignment="CENTER" layoutY="17.0" prefHeight="55.0" prefWidth="686.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox alignment="CENTER" spacing="180.0">
+                                       <children>
+                                          <Label text="Clinic" />
+                                          <Label text="Patient ID" />
+                                          </children>
+                                       <padding>
+                                          <Insets top="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="50.0">
+                                       <children>
+                                          <TextField fx:id="clinicField" prefHeight="25.0">
+                                             <padding>
+                                                <Insets right="25.0" />
+                                             </padding>
+                                          </TextField>
+                                          <TextField fx:id="patientIDField" prefHeight="25.0">
+                                             <padding>
+                                                <Insets left="25.0" />
+                                             </padding>
+                                          </TextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets bottom="20.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
                         <SplitPane dividerPositions="0.6050670640834576" prefHeight="253.0" prefWidth="673.0" VBox.vgrow="ALWAYS">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="265.0" prefWidth="151.0">
                                  <children>
-                                    <Label layoutX="151.0" layoutY="14.0" text="Reading Data:" />
-                                    <Label layoutX="14.0" layoutY="60.0" text="Reading Type:" />
-                                    <Label layoutX="105.0" layoutY="195.0" text="Reading Value" />
-                                    <TextField layoutX="69.0" layoutY="220.0" />
-                                    <Button layoutX="233.0" layoutY="220.0" mnemonicParsing="false" text="Add Reading" />
-                                    <RadioButton layoutX="108.0" layoutY="60.0" mnemonicParsing="false" text="Blood Pressure" />
-                                    <RadioButton layoutX="108.0" layoutY="88.0" mnemonicParsing="false" text="Steps" />
-                                    <RadioButton layoutX="108.0" layoutY="116.0" mnemonicParsing="false" text="Weight" />
-                                    <RadioButton layoutX="108.0" layoutY="143.0" mnemonicParsing="false" text="Temperature" />
+                                    <VBox alignment="CENTER" layoutX="14.0" layoutY="14.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                       <children>
+                                          <Label text="Reading Data:" />
+                                          <HBox spacing="10.0">
+                                             <children>
+                                                <Label text="Reading Type:" />
+                                                <VBox spacing="10.0">
+                                                   <children>
+                                                      <RadioButton fx:id="bloodPressureRButton" mnemonicParsing="false" text="Blood Pressure" />
+                                                      <RadioButton fx:id="stepsRButton" mnemonicParsing="false" text="Steps" />
+                                                      <RadioButton fx:id="weightRButton" mnemonicParsing="false" text="Weight" />
+                                                      <RadioButton fx:id="temperatureRButton" mnemonicParsing="false" text="Temperature" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                             <padding>
+                                                <Insets top="15.0" />
+                                             </padding>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </HBox>
+                                          <HBox spacing="15.0">
+                                             <children>
+                                                <Label text="Reading Value:">
+                                                   <padding>
+                                                      <Insets top="5.0" />
+                                                   </padding>
+                                                </Label>
+                                                <TextField fx:id="readingValueField" />
+                                                <Button fx:id="addReadingButton" mnemonicParsing="false" onAction="#handleAddReadingButton" text="Add Reading" />
+                                             </children>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets top="10.0" />
+                                             </padding>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
                                  </children></AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="265.0" prefWidth="264.0">
                                  <children>
-                                    <Button layoutX="98.0" layoutY="71.0" mnemonicParsing="false" text="Start Trial" />
-                                    <Button layoutX="100.0" layoutY="159.0" mnemonicParsing="false" text="End Trial" />
-                                    <Label layoutX="79.0" layoutY="3.0" text="Change Trial Status:">
-                                       <padding>
-                                          <Insets bottom="5.0" top="5.0" />
-                                       </padding></Label>
+                                    <VBox alignment="CENTER" layoutX="79.0" layoutY="3.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="Change Trial Status:">
+                                             <padding>
+                                                <Insets bottom="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                          <Button mnemonicParsing="false" text="Start Trial" />
+                                          <Button mnemonicParsing="false" text="End Trial" />
+                                       </children>
+                                    </VBox>
                                  </children></AnchorPane>
                           </items>
                         </SplitPane>
                         <Pane maxHeight="50.0" prefHeight="50.0" prefWidth="673.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label layoutX="311.0" layoutY="12.0" text="status" textFill="#000654">
+                              <Label fx:id="statusLabel" layoutX="311.0" layoutY="12.0" text="status" textFill="#000654">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font></Label>
