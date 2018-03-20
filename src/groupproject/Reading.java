@@ -1,13 +1,13 @@
-package test;
+package groupproject;
 
 import java.sql.Date;
 
 public class Reading {
 
-	String rType;
-	String rId;
-	String rValue;
-	Date rDate;
+	private String rType;
+	private String rId;
+	private String rValue;
+	private Date rDate;
 
 	public Reading(String type, String id, String value, Date date) {
 		setRType(type);
