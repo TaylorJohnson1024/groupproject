@@ -74,13 +74,13 @@ public class ClinicApplication extends Application{
     public static void getInputAndExportAllReadings() throws FileNotFoundException
     {
     	Input in = new Input();
+    	ReadingsAdaptor adpt = new ReadingsAdaptor();
     	in.fileChooser();
     	ParserJSON p = new ParserJSON(in.getFile());
-    	JSONArray patientReadings = p.getJSONArray("patient_readings");
+    	ArrayList<Reading> patientReadings = adpt.switchJSONArrayToReadings(p.getJSONArray("patient_readings"));
     	
-    	for(Object rawReading: patientReadings)
+    	for(Reading reading: patientReadings)
     	{
-            JSONObject reading = (JSONObject) rawReading;
             addReading(reading);
     	}
         
@@ -93,13 +93,16 @@ public class ClinicApplication extends Application{
     /**
      * Adds the given reading to the correct patient.
      * A new patient is added if none with the id from
-     * the given JSONObject match any existing id in
+     * the given Reading match any existing id in
      * patientList.
      * 
      * @param reading
      */
-    public static void addReading(JSONObject reading)
+    public static void addReading(Reading reading)
     {
+        int patient_id;
+        patient_id = Integer.parseInt((String) reading.getPatientID());
+
     	/*
     	 * checks if the patientList is empty
     	 * if it is it adds a new patient to it
@@ -112,14 +115,12 @@ public class ClinicApplication extends Application{
     	 */
     	if(patientList.isEmpty())
     	{
-            addPatient(0, reading);
+            addPatient(0, patient_id,  reading);
     	}
         else
     	{
             for(int i = 0; i < patientList.size(); i++)
             {
-                int patient_id;
-                patient_id = Integer.parseInt((String) reading.get("patient_id"));    
                 if(patientList.get(i).getId() == patient_id)
                 {
                         patientList.get(i).addReading(reading);
@@ -127,7 +128,7 @@ public class ClinicApplication extends Application{
                 }
                 else if(patientList.get(i).getId() < patient_id)
                 {
-                    addPatient(i, reading);
+                    addPatient(i,  patient_id, reading);
                     i = patientList.size();
 
                     /*
@@ -140,23 +141,24 @@ public class ClinicApplication extends Application{
                 }
                 else if(i == patientList.size()-1)
                 {
-                   addPatient(-1, reading);
+                   addPatient(-1,  patient_id, reading);
                 }
             }
     	}
     }
     
     /**
-     * Adds a new patient with the JSONObject at the given index.
-     * the new patient is added to the end of patientList if the
+     * Adds a new patient with the Reading at the given index.
+     * The new patient is added to the end of patientList if the
      * index is less than 0 (usually -1).
      * 
      * @param index
+     * @param patient_id
      * @param reading
      */
-    public static void addPatient(int index, JSONObject reading)
+    public static void addPatient(int index, int  patient_id, Reading reading)
     {
-    	Patient newP = new Patient(index, true);
+    	Patient newP = new Patient( patient_id, true);
     	newP.addReading(reading);
     	
     	if(index < 0)
