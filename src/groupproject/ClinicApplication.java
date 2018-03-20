@@ -1,9 +1,18 @@
 package groupproject;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+
+import static javafx.application.Application.launch;
 
 
 /**
@@ -19,13 +28,27 @@ import org.json.simple.JSONArray;
  * @Output Author:              Zinet Kemal
  * 
  */
-public class ClinicApplication {
+public class ClinicApplication extends Application{
 
     /*
      * Used to keep track of the patients in the trial.
      */
     static ArrayList<Patient> patientList = new ArrayList<Patient>();
-	
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+
+
+            Parent root = FXMLLoader.load(getClass().getResource("ClinicApplication.fxml"));
+            primaryStage.setScene(new Scene(root, 683, 473));
+            primaryStage.show();
+
+
+    }
+
+
+
+
     /**
      * 
      * main Class, calls getInput and setOutput.
@@ -34,9 +57,12 @@ public class ClinicApplication {
      */
     public static void main(String[] args) throws FileNotFoundException
     {
-    	getInputAndExportAllReadings();
+
+    	//getInputAndExportAllReadings();
+        launch(args);
+
     }
-    
+
     /**
      * Instantiates new Input object,
      * sends file to parser and get
@@ -112,7 +138,7 @@ public class ClinicApplication {
                      * patientList.
                      */
                 }
-                else if(i == patientList.size()-1) 
+                else if(i == patientList.size()-1)
                 {
                    addPatient(-1, reading);
                 }
