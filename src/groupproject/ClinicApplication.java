@@ -74,7 +74,7 @@ public class ClinicApplication extends Application{
     public static void getInputAndExportAllReadings() throws FileNotFoundException
     {
     	Input in = new Input();
-    	ReadingsAdaptor adpt = new ReadingsAdaptor();
+    	ReadingsJSONAdaptor adpt = new ReadingsJSONAdaptor();
     	in.fileChooser();
     	ParserJSON p = new ParserJSON(in.getFile());
     	ArrayList<Reading> patientReadings = adpt.switchJSONArrayToReadings(p.getJSONArray("patient_readings"));

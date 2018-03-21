@@ -2,17 +2,21 @@ package groupproject;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /*
  * Adaptor for changing JSONArrays into
  * ArrayLists, and vise versa.
  */
-public class ReadingsAdaptor {
+public class ReadingsJSONAdaptor {
 
-    ReadingsAdaptor()
+    ReadingsJSONAdaptor()
     {
 
     }
@@ -61,23 +65,6 @@ public class ReadingsAdaptor {
         return thisReading;
     }
 
-    //=================================XMLToReading=============================================
-
-    /*
-     * Converts an XML into an Arraylist of Readings,
-     * and returns the ArrayList of Readings.
-     *
-     */
-    public ArrayList<Reading> switchXMLToReadings(Object patientReadings)
-    {
-        ArrayList<Reading> readingArrayList = new ArrayList<Reading>();
-        String type = null;
-        String id = null;
-        String value = null;
-        String date = null;
-
-        return readingArrayList;
-    }
 
     //========================================ReadingToJSON==================================================
 
