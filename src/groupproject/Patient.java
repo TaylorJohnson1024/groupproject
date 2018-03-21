@@ -14,6 +14,7 @@ class Patient
     private int id;
     private boolean inTrial;
     private JSONArray readings;
+    private ReadingList readingsArray;
 
     public Patient(int id, boolean inTrial){
             this.setId(id);
@@ -69,13 +70,28 @@ class Patient
 
     //adds a JSON object to the JSON array if patient ID matches
     //returns "successful" if the object is added, and "patient id doesn't match" if unsuccessful
-    public String addReading(JSONObject obj) 
+    public String addReading(JSONObject obj)
     {
         int patient_id;
         patient_id = Integer.parseInt((String) obj.get("patient_id"));
         if((patient_id == id)&&(inTrial == true))
         {
             readings.add(obj);
+            return ("successful");
+        }
+
+        return("Patient ID doesn't match");
+    }
+
+    //adds a Reading object to the ReadingList array if patient ID matches
+    //returns "successful" if the object is added, and "patient id doesn't match" if unsuccessful
+    public String addReading(Reading obj)
+    {
+        int patient_id;
+        patient_id = Integer.parseInt((String) obj.getPatientID());
+        if((patient_id == id)&&(inTrial == true))
+        {
+            readingsArray.addReading(obj);
             return ("successful");
         }
 
