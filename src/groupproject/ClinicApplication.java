@@ -84,10 +84,17 @@ public class ClinicApplication extends Application{
             addReading(reading);
     	}
         
-        //export all readings 
+        //export all readings
+        ArrayList<Reading> outReadings = new ArrayList<Reading>();
+        for(Patient patient: patientList)
+        {
+            outReadings.addAll(patient.getReadings());
+        }
+
+        JSONArray out = adpt.readingArrayListToJSONArray(outReadings);
         Output output = new Output("output.json");
-        output.parseJSONAndExportAllReadings(p.getJSONArray("patient_readings"));
-        output.displayPatientReadings(p.getJSONArray("patient_readings"));
+        output.parseJSONAndExportAllReadings(out);
+        output.displayPatientReadings(out);
     }
     
     /**
