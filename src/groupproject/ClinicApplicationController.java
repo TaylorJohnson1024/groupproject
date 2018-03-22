@@ -73,12 +73,12 @@ public class ClinicApplicationController {
         weightRButton.setToggleGroup(readingValueGroup);
         temperatureRButton.setToggleGroup(readingValueGroup);
 
-        try {
+      /*  try {
             getInputAndExportAllReadings();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        //statemens that set what kind of data go into each column in the GUI's Table.
+      */  //statemens that set what kind of data go into each column in the GUI's Table.
         patientIDColumn.setCellValueFactory(new PropertyValueFactory<Reading, String>("patientID"));
         readingIDColumn.setCellValueFactory(new PropertyValueFactory<Reading, String>("rId"));
         readingColumn.setCellValueFactory(new PropertyValueFactory<Reading, String>("rType"));
