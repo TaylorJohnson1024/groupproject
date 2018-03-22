@@ -18,39 +18,35 @@ class Patient
     public Patient(int id, boolean inTrial){
             this.setId(id);
             this.setInTrial(inTrial);
-
+            readings = new JSONArray();
     }
 
 
+    public boolean isInTrial() {
+            return inTrial;
+    }
 
 
-    //===============Setters=================
     public void setInTrial(boolean inTrial) {
-        this.inTrial = inTrial;
+            this.inTrial = inTrial;
     }
+
+
+    public int getId() {
+            return id;
+    }
+
 
     public void setId(int id) {
             this.id = id;
     }
 
-
-    //============Getters===============
-    public int getId() {
-        return id;
-    }
-
-    public boolean isInTrial() {
-        return inTrial;
-    }
-
-
-    //Starts a patient's trial.===
+    //Starts a patient's trial.
     public void startTrial(){
             this.inTrial = true; 
     }
 
-
-    //ends a patient's trial===
+    //ends a patient's trial.	
     public void endTrial(){
             this.inTrial = false;
     }
@@ -64,8 +60,6 @@ class Patient
     public void setReadings(JSONArray readings) {
             this.readings = readings;
     }
-
-
 
     //adds a JSON object to the JSON array if patient ID matches
     //returns "successful" if the object is added, and "patient id doesn't match" if unsuccessful
