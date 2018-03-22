@@ -1,7 +1,7 @@
 package groupproject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
 import static javafx.application.Application.launch;
@@ -57,34 +56,87 @@ public class ClinicApplication extends Application{
      */
     public static void main(String[] args) throws FileNotFoundException
     {
-
+        loadSavedData();
     	//getInputAndExportAllReadings();
         launch(args);
 
+        exportAllReadings();
     }
 
-    /**
-     * Instantiates new Input object,
-     * sends file to parser and get
-     * JSONArray object. Each JSON object in
-     * the JSONArray is traversed and
-     * passed to addReading.
-     * finally call parseJSONAndExportAllReadings method to export all readings
-     */
-    public static void getInputAndExportAllReadings() throws FileNotFoundException
+    private static void loadSavedData()
     {
-    	Input in = new Input();
-    	ReadingsJSONAdaptor adpt = new ReadingsJSONAdaptor();
-    	in.fileChooser();
-    	ParserJSON p = new ParserJSON(in.getFile());
-    	ArrayList<Reading> patientReadings = adpt.switchJSONArrayToReadings(p.getJSONArray("patient_readings"));
-    	
-    	for(Reading reading: patientReadings)
-    	{
+        File f;
+
+        try{
+            f = Input.getSaveFile();
+        }catch(FileNotFoundException e){
+            return;
+        }
+
+        inputJSONObject(f);
+    }
+
+    /*
+    * opens the File chooser and calls inputJSONObject
+    * if the file is of type json, or inputXML if the
+    * file is of type xml. If the file is neither json
+    * or XML then nothing is done with it.
+     */
+    public static void inputChooser()
+    {
+        Input in = new Input();
+        in.fileChooser();
+        String fileType = in.getFileType();
+
+        if(fileType.equalsIgnoreCase("json"))
+        {
+            inputJSONObject(in.getFile());
+        }else if(fileType.equalsIgnoreCase("xml"))
+        {
+            inputXML(in.getFile());
+        }
+
+    }
+
+    /*
+     * Takes the input of a JSON File
+     * and converts it into Reading objects.
+     */
+    public static void inputJSONObject(File inFile)
+    {
+        ReadingsJSONAdaptor adpt = new ReadingsJSONAdaptor();
+        ParserJSON p = new ParserJSON(inFile);
+        ArrayList<Reading> patientReadings = adpt.switchJSONArrayToReadings(p.getJSONArray("patient_readings"));
+
+        for(Reading reading: patientReadings)
+        {
             addReading(reading);
-    	}
-        
-        //export all readings
+        }
+    }
+
+    /*
+    * Takes the input of an XML File
+    * and converts it into Reading objects.
+     */
+    public static void inputXML(File inFile)
+    {
+        ReadingsXMLAdaptor adpt = new ReadingsXMLAdaptor();
+        ParserXML p = new ParserXML(inFile);
+        ArrayList<Reading> patientReadings = adpt.switchXMLToReadings(p.getXMLDocument());
+
+        for(Reading reading: patientReadings)
+        {
+            addReading(reading);
+        }
+    }
+
+    /*
+    * Converts all readings to a JSONArray, and exports
+    * them to the JSON save file.
+     */
+    public static void exportAllReadings() throws FileNotFoundException
+    {
+        ReadingsJSONAdaptor adpt = new ReadingsJSONAdaptor();
         ArrayList<Reading> outReadings = new ArrayList<Reading>();
         for(Patient patient: patientList)
         {
@@ -92,7 +144,7 @@ public class ClinicApplication extends Application{
         }
 
         JSONArray out = adpt.readingArrayListToJSONArray(outReadings);
-        Output output = new Output("output.json");
+        Output output = new Output(Input.getSaveFile().getName());
         output.parseJSONAndExportAllReadings(out);
         output.displayPatientReadings(out);
     }
