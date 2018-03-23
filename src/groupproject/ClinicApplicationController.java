@@ -125,14 +125,18 @@ public class ClinicApplicationController {
         }
 
         //only adds a new reading object & refreshes table if all data fields are populated.
-        if(isValid == true && checkTrial() == true){
+        if(checkTrial() == true) {
+            if (isValid == true) {
 
-            readingList.addReading(new Reading(patientID, clinic, readingType, readingValue, date ));
-            refreshTable();
-            ClinicApplication.addReading(new Reading(patientID, clinic, readingType, readingValue, date ));
-            statusLabel.setText("Reading Added");
-        }else{
-            statusLabel.setText("Missing Data");
+                readingList.addReading(new Reading(patientID, clinic, readingType, readingValue, date));
+                refreshTable();
+                ClinicApplication.addReading(new Reading(patientID, clinic, readingType, readingValue, date));
+                statusLabel.setText("Reading Added");
+            } else {
+                statusLabel.setText("Missing Data");
+            }
+        } else {
+            statusLabel.setText("patient not in trial");
         }
 
     }
@@ -196,7 +200,7 @@ public class ClinicApplicationController {
             if(pos != -1) {
                 if (ClinicApplication.patientList.get(pos).isInTrial() == false) {
                     ClinicApplication.patientList.get(pos).setInTrial(true);
-                    statusLabel.setText("trial for Patient with ID: " + id + " has sterted.");
+                    statusLabel.setText("trial for Patient with ID: " + id + " has started.");
                 }
             }else {
                 statusLabel.setText("patient not found");
@@ -231,8 +235,8 @@ public class ClinicApplicationController {
     public int searchPatient(int i){
 
         int pos = -1;
-        for(int p = 0; i < ClinicApplication.patientList.size(); i++) {
-           if(ClinicApplication.patientList.get(i).getId() == i ){
+        for(int p = 0; p < ClinicApplication.patientList.size(); p++) {
+           if(ClinicApplication.patientList.get(p).getId() == i ){
                     pos = p;
            }
         }
