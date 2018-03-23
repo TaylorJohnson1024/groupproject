@@ -2,6 +2,7 @@ package groupproject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.FileSystemNotFoundException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -34,6 +35,10 @@ public class ClinicApplication extends Application{
      */
     static ArrayList<Patient> patientList = new ArrayList<Patient>();
 
+    //Used to store the path of the save file.
+    private static String savePath;
+    private static final String saveName = "savedData.json";
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -57,7 +62,7 @@ public class ClinicApplication extends Application{
     public static void main(String[] args) throws FileNotFoundException
     {
         loadSavedData();
-    	//getInputAndExportAllReadings();
+
         launch(args);
 
         exportAllReadings();
@@ -65,15 +70,23 @@ public class ClinicApplication extends Application{
 
     private static void loadSavedData()
     {
-        File f;
+        Input in = new Input();
+        //sets savePath as the directory name the program is stored in.
+        savePath = System.getProperty("user.dir");
+        savePath += "\\src\\" + saveName;
+
+        File f = null;
 
         try{
-            f = Input.getSaveFile();
-        }catch(FileNotFoundException e){
-            return;
+            f = in.getSaveFile(savePath);
+            inputJSONObject(f);
+        }catch(Exception e){
+            System.out.println(e);
         }
 
-        inputJSONObject(f);
+
+
+
     }
 
     /*
@@ -144,7 +157,7 @@ public class ClinicApplication extends Application{
         }
 
         JSONArray out = adpt.readingArrayListToJSONArray(outReadings);
-        Output output = new Output(Input.getSaveFile().getName());
+        Output output = new Output(savePath);
         output.parseJSONAndExportAllReadings(out);
         output.displayPatientReadings(out);
     }
