@@ -20,6 +20,7 @@ import org.json.simple.parser.ParseException;
  * @author Taylor Johnson
  * @see //www.examples.javacodegeeks.com/core-java/json/java-json-parser-example/
  * @see //www.geeksforgeeks.org/parse-json-java/
+ * @see //www.stackoverflow.com/questions/10739128/how-to-create-multiple-directories-given-the-folder-names
  */
 	public class Input {
 	private File inFile;
@@ -68,6 +69,28 @@ import org.json.simple.parser.ParseException;
             return fileType;
         } catch (Exception e) {
             return "";
+        }
+    }
+
+    /**
+     * Gets the save file from an already completed session of this application.
+     * If the filepath provided does not yield a file, then the directories are made instead
+     * and an error is thrown.
+     *
+     * @param filePath path of the saved file
+     * @return the saved file
+     */
+    public File getSaveFile(String filePath) {
+        try {
+            File f = new File(filePath);
+            return f;
+        }
+        catch (Exception e) {
+            File f = new File(filePath);
+            File directory = new File(f.getParent());
+            directory.mkdirs();
+
+            throw e;
         }
     }
 
