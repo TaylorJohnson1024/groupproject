@@ -20,6 +20,7 @@ class Patient
     private ReadingList readingsArray;
 
     public Patient(int id, boolean inTrial){
+            readings = new ArrayList<Reading>();
             this.setId(id);
             this.setInTrial(inTrial);
 
