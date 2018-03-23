@@ -28,8 +28,7 @@
                            <children>
                               <VBox alignment="CENTER" layoutX="71.0" layoutY="138.0" maxWidth="200.0" prefWidth="200.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button mnemonicParsing="false" text="Import File" />
-                                    <Button mnemonicParsing="false" text="Export" />
+                                    <Button fx:id="importButton" mnemonicParsing="false" onAction="#importFile" text="Import File" />
                                  </children>
                               </VBox>
                            </children>
@@ -76,11 +75,7 @@
                                                 <Insets right="25.0" />
                                              </padding>
                                           </TextField>
-                                          <TextField fx:id="patientIDField" prefHeight="25.0">
-                                             <padding>
-                                                <Insets left="25.0" />
-                                             </padding>
-                                          </TextField>
+                                          <TextField fx:id="patientIDField" prefHeight="25.0" />
                                        </children>
                                        <VBox.margin>
                                           <Insets />
@@ -148,8 +143,8 @@
                                                 <Insets bottom="5.0" top="5.0" />
                                              </padding>
                                           </Label>
-                                          <Button mnemonicParsing="false" text="Start Trial" />
-                                          <Button mnemonicParsing="false" text="End Trial" />
+                                          <Button mnemonicParsing="false" onAction="#startTrial" text="Start Trial" />
+                                          <Button mnemonicParsing="false" onAction="#endTrial" text="End Trial" />
                                        </children>
                                     </VBox>
                                  </children></AnchorPane>
