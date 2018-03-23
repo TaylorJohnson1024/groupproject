@@ -12,11 +12,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.FileNotFoundException;
 import java.sql.Date;
+import java.util.ArrayList;
 
-import static groupproject.ClinicApplication.getInputAndExportAllReadings;
+
 
 
 public class ClinicApplicationController {
+
+
 
     //===============Labels=========
     @FXML
@@ -73,11 +76,6 @@ public class ClinicApplicationController {
         weightRButton.setToggleGroup(readingValueGroup);
         temperatureRButton.setToggleGroup(readingValueGroup);
 
-        try {
-            getInputAndExportAllReadings();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
         //statemens that set what kind of data go into each column in the GUI's Table.
         patientIDColumn.setCellValueFactory(new PropertyValueFactory<Reading, String>("patientID"));
         readingIDColumn.setCellValueFactory(new PropertyValueFactory<Reading, String>("rId"));
@@ -85,9 +83,11 @@ public class ClinicApplicationController {
         valueColumn.setCellValueFactory(new PropertyValueFactory<Reading, String>("rValue"));
         clinicColumn.setCellValueFactory(new PropertyValueFactory<Reading, String>("clinic"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<Reading, Date>("rDate"));
-        table.setItems(readingList.getReadings());
+        loadReadings();
 
     }
+
+
 
     public void handleAddReadingButton(){
         boolean isValid = true;
@@ -125,9 +125,11 @@ public class ClinicApplicationController {
         }
 
         //only adds a new reading object & refreshes table if all data fields are populated.
-        if(isValid == true){
+        if(isValid == true && checkTrial() == true){
+
             readingList.addReading(new Reading(patientID, clinic, readingType, readingValue, date ));
-            table.setItems(readingList.getReadings());
+            refreshTable();
+            ClinicApplication.addReading(new Reading(patientID, clinic, readingType, readingValue, date ));
             statusLabel.setText("Reading Added");
         }else{
             statusLabel.setText("Missing Data");
@@ -135,11 +137,107 @@ public class ClinicApplicationController {
 
     }
 
+
+    //refreshes the table.
     public void refreshTable(){
         table.setItems(readingList.getReadings());
     }
 
 
+    //Loads all readings from the patientList in main.
+    public void loadReadings(){
+        readingList.clear();
+        for(int i = 0; i < ClinicApplication.patientList.size(); i++){
+            ArrayList<Reading> readings = ClinicApplication.patientList.get(i).getReadings();
+            for(int q = 0; q < readings.size() ; i++){
+                readingList.addReading(readings.get(q));
+            }
+        }
+        refreshTable();
+    }
+
+
+    //Checks if a patient is in a trial using an ID retrieved from the textField: patientIDField
+    //returns true if a patient is in a trial, or if a patient is not found.
+    //Returns false if a patient is not in a trial.
+    public boolean checkTrial(){
+        boolean inTrial = true;
+        if(!patientIDField.getText().isEmpty()) {
+            try {
+                int id = Integer.parseInt(patientIDField.getText());
+                int pos = searchPatient(id);
+                if (pos != -1) {
+                    if (ClinicApplication.patientList.get(pos).isInTrial() == false) {
+                        inTrial = false;
+                    }
+                }
+            }catch (NumberFormatException e){
+                statusLabel.setText("Patient ID must be numerical");
+                inTrial = false;
+            }
+        }
+        return inTrial;
+    }
+
+
+    //Loads a file, and retrieves all readings from the patientList in main.
+    public void importFile(){
+        ClinicApplication.inputChooser();
+        loadReadings();
+    }
+
+
+    //Checks if a patient is in a trial.
+    // If the patient is not in a trial: sets inTrial to true.
+    public void startTrial(){
+        if(!patientIDField.getText().isEmpty()) {
+            int id = Integer.parseInt(patientIDField.getText());
+            int pos = searchPatient(id);
+            if(pos != -1) {
+                if (ClinicApplication.patientList.get(pos).isInTrial() == false) {
+                    ClinicApplication.patientList.get(pos).setInTrial(true);
+                    statusLabel.setText("trial for Patient with ID: " + id + " has sterted.");
+                }
+            }else {
+                statusLabel.setText("patient not found");
+            }
+        }else{
+            statusLabel.setText("no patient ID entered");
+        }
+    }
+
+
+    //Checks if a patient is in a trial.
+    // If the patient is in a trial: sets inTrial to false.
+    public void endTrial(){
+        if(!patientIDField.getText().isEmpty()) {
+            int id = Integer.parseInt(patientIDField.getText());
+            int pos = searchPatient(id);
+            if(pos != -1) {
+                if (ClinicApplication.patientList.get(pos).isInTrial() == true) {
+                    ClinicApplication.patientList.get(pos).setInTrial(false);
+                    statusLabel.setText("Trial for Patient with ID: " + id + " has ended.");
+                }
+            }else{
+                statusLabel.setText("patient not found");
+            }
+        }else{
+            statusLabel.setText("no patient ID entered");
+        }
+    }
+
+
+    //A method to return the index of a patient based on the patientID.
+    public int searchPatient(int i){
+
+        int pos = -1;
+        for(int p = 0; i < ClinicApplication.patientList.size(); i++) {
+           if(ClinicApplication.patientList.get(i).getId() == i ){
+                    pos = p;
+           }
+        }
+        return pos;
+    }
 
 
 }

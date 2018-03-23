@@ -16,26 +16,27 @@ import org.json.simple.parser.ParseException;
 
 /**
  * Object intended for retrieving a file.
- * 
+ *
  * @author Taylor Johnson
  * @see //www.examples.javacodegeeks.com/core-java/json/java-json-parser-example/
  * @see //www.geeksforgeeks.org/parse-json-java/
+ * @see //www.stackoverflow.com/questions/10739128/how-to-create-multiple-directories-given-the-folder-names
  */
-	public class Input {
-	private File inFile;
+public class Input {
+    private File inFile;
     private String fileType;
 
-	/**
-	 * Constructor method for Input.
-	 */
-	public Input() {
+    /**
+     * Constructor method for Input.
+     */
+    public Input() {
 
-	}
+    }
 
     /**
      * Creates the JFileChooser and stores the selected file.
      */
-	public void fileChooser() {
+    public void fileChooser() {
         // Create and open JFileChooser
         // Sets path of JSON file
         JFileChooser fc = new JFileChooser();
@@ -71,11 +72,33 @@ import org.json.simple.parser.ParseException;
         }
     }
 
-	public File getFile() {
-        return inFile;
-	}
+    /**
+     * Gets the save file from an already completed session of this application.
+     * If the filepath provided does not yield a file, then the directories are made instead
+     * and an error is thrown.
+     *
+     * @param filePath path of the saved file
+     * @return the saved file
+     */
+   static public File getSaveFile(String filePath) {
+        try {
+            File f = new File(filePath);
+            return f;
+        }
+        catch (Exception e) {
+            File f = new File(filePath);
+            File directory = new File(f.getParent());
+            directory.mkdirs();
 
-	public String getFileType() {
+            throw e;
+        }
+    }
+
+    public File getFile() {
+        return inFile;
+    }
+
+    public String getFileType() {
         return fileType;
     }
 }
