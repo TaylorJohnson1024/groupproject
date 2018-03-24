@@ -57,9 +57,9 @@ public class ReadingsJSONAdaptor {
         String clinic_id = (String) reading.get("clinic_id");
         String patient_id = (String) reading.get("patient_id");
         String type = (String) reading.get("reading_type");
-        String reading_id = (String) reading.get("reading_type");
-        String value = (String) reading.get("reading_type");
-        String date = (String) reading.get("reading_type");
+        String reading_id = (String) reading.get("reading_id");
+        String value = (String) reading.get("reading_value");
+        String date = (String) reading.get("reading_date");
 
         Reading thisReading = new  Reading(patient_id, clinic_id, type, reading_id, value, date);
         return thisReading;
