@@ -25,4 +25,8 @@ public class ReadingList {
         readings.add(reading);
     }
 
+    public void clear(){
+        this.readings.clear();
+    }
+
 }
