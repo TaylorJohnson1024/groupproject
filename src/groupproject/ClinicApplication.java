@@ -2,7 +2,6 @@ package groupproject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.FileSystemNotFoundException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -61,7 +60,11 @@ public class ClinicApplication extends Application{
      */
     public static void main(String[] args) throws FileNotFoundException
     {
-        loadSavedData();
+        try{
+            loadSavedData();
+        }catch (Exception e){
+
+        }
 
         launch(args);
 
@@ -83,9 +86,6 @@ public class ClinicApplication extends Application{
         }catch(Exception e){
             System.out.println(e);
         }
-
-
-
 
     }
 

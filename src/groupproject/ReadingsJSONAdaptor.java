@@ -54,12 +54,12 @@ public class ReadingsJSONAdaptor {
      */
     public Reading switchJSONObjectToReading(JSONObject reading)
     {
-        String clinic_id = (String) reading.get("clinic_id");
-        String patient_id = (String) reading.get("patient_id");
-        String type = (String) reading.get("reading_type");
-        String reading_id = (String) reading.get("reading_id");
-        String value = (String) reading.get("reading_value");
-        String date = (String) reading.get("reading_date");
+        String clinic_id = reading.get("clinic_id").toString();
+        String patient_id = reading.get("patient_id").toString();
+        String type = reading.get("reading_type").toString();
+        String reading_id = reading.get("reading_id").toString();
+        String value = reading.get("reading_value").toString();
+        String date = reading.get("reading_date").toString();
 
         Reading thisReading = new  Reading(patient_id, clinic_id, type, reading_id, value, date);
         return thisReading;
