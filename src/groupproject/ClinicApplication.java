@@ -84,7 +84,7 @@ public class ClinicApplication extends Application{
             f = in.getSaveFile(savePath);
             inputJSONObject(f);
         }catch(Exception e){
-            System.out.println(e);
+
         }
 
     }
