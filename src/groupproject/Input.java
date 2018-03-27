@@ -52,7 +52,7 @@ import org.json.simple.parser.ParseException;
         if (inFile == null) {
 
             // show a message box letting the user know that no file has been selected
-            int reply = JOptionPane.showConfirmDialog(null, "No file chosen. Do you want to select a file?", "choose", JOptionPane.YES_NO_OPTION);
+            int reply = JOptionPane.showConfirmDialog(null, "No file chosen. Do you want to select a file?", "", JOptionPane.YES_NO_OPTION);
 
             // if the user chooses to select a file, rerun filechooser method
             if (reply == JOptionPane.YES_OPTION)
