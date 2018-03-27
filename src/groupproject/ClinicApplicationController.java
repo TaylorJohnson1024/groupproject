@@ -153,7 +153,7 @@ public class ClinicApplicationController {
         readingList.clear();
         for(int i = 0; i < ClinicApplication.patientList.size(); i++){
             ArrayList<Reading> readings = ClinicApplication.patientList.get(i).getReadings();
-            for(int q = 0; q < readings.size() ; i++){
+            for(int q = 0; q < readings.size() ; q++){
                 readingList.addReading(readings.get(q));
             }
         }
