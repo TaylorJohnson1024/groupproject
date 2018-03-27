@@ -1,5 +1,6 @@
 package groupproject;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -7,8 +8,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
+import javafx.scene.control.Alert;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -47,8 +49,21 @@ import org.json.simple.parser.ParseException;
         this.inFile = fc.getSelectedFile();
 
         // If there is no file selected, then exit gracefully
-        if (inFile == null)
-            System.exit(0);
+        if (inFile == null) {
+
+            // show a message box letting the user know that no file has been selected
+            int reply = JOptionPane.showConfirmDialog(null, "No file chosen. Do you want to select a file?", "choose", JOptionPane.YES_NO_OPTION);
+
+            // if the user chooses to select a file, rerun filechooser method
+            if (reply == JOptionPane.YES_OPTION)
+            {
+                fileChooser();
+            }
+            else    // exit the program
+            {
+                System.exit(0);
+            }
+        }
 
         // If there is a file selected, then the file type is determined
         if (!(inFile == null))
