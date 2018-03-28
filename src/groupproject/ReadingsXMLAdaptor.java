@@ -34,7 +34,7 @@ public class ReadingsXMLAdaptor {
         setAllDataNull();
         readingArrayList = new ArrayList<Reading>();
 
-        NodeList nodeList =  patientReadings.getElementsByTagName("*");
+        NodeList nodeList =  patientReadings.getDocumentElement().getElementsByTagName("*");
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node data = nodeList.item(i);
             if (data.getNodeType() == Node.ELEMENT_NODE) {
@@ -42,52 +42,55 @@ public class ReadingsXMLAdaptor {
 
                 switch(data.getNodeName())
                 {
-                    case "clinic id":
+                    case "Clinic":
                         if(clinic_id == null)
                         {
-                            clinic_id = data.getNodeValue();
+                            clinic_id = data.getAttributes().getNamedItem("id").getNodeValue();
                         }else
                         {
                             AddReadingToList();
-                            clinic_id = data.getNodeName();
+                            clinic_id = data.getAttributes().getNamedItem("id").getNodeValue();
                         }
                         break;
-                    case "Reading type":
+                    case "Reading":
                         if(type == null)
                         {
-                            type = data.getNodeValue();
+                            type = data.getAttributes().getNamedItem("type").getNodeValue();
+                            reading_id = data.getAttributes().getNamedItem("id").getNodeValue();
                         }else if(patient_id != null) //ensure there is a patient ID before adding a Reading.
                         {
                             AddReadingToList();
-                            type = data.getNodeName();
+                            type = data.getAttributes().getNamedItem("type").getNodeValue();
+                            reading_id = data.getAttributes().getNamedItem("id").getNodeValue();
                         }else
                         {
                             setAllDataNull();
-                            type = data.getNodeName();
+                            type = data.getAttributes().getNamedItem("type").getNodeValue();
+                            reading_id = data.getAttributes().getNamedItem("id").getNodeValue();
                         }
                         break;
-                    case "Value unit":
+                    case "Value":
                         if(value == null)
                         {
-                            value = data.getNodeValue();
+                            value = data.getTextContent();
                         }else if(patient_id != null) //ensure there is a patient ID before adding a Reading.
                         {
                             AddReadingToList();
-                            value = data.getNodeName();
+                            value = data.getTextContent();
                         }else
                         {
                             setAllDataNull();
-                            value = data.getNodeName();
+                            value = data.getTextContent();
                         }
                         break;
                     case "Patient":
                         if(patient_id == null)
                         {
-                            patient_id = data.getNodeValue();
+                            patient_id = data.getTextContent();
                         }else
                         {
                             AddReadingToList();
-                            patient_id = data.getNodeName();
+                            patient_id = data.getTextContent();
                         }
                         break;
                 }
@@ -121,6 +124,10 @@ public class ReadingsXMLAdaptor {
      */
     private void AddReadingToList()
     {
+        // !! Remove me when we figure out a way to generate dates for xml files !!
+        date = "1515354694451";
+        // !! Remove me when we figure out a way to generate dates for xml files !!
+        
         thisReading = new  Reading(patient_id, clinic_id, type, reading_id, value, date);
         readingArrayList.add(thisReading);
 

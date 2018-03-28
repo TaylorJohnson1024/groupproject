@@ -32,6 +32,7 @@ public class ParserXML extends Parser {
     void parseObject() {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            dbFactory.setNamespaceAware(true);
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(super.getInFile());
 
