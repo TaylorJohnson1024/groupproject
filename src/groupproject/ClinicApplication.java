@@ -76,13 +76,18 @@ public class ClinicApplication extends Application{
         Input in = new Input();
         //sets savePath as the directory name the program is stored in.
         savePath = System.getProperty("user.dir");
-        savePath += "\\src\\" + saveName;
+        savePath += "/src/" + saveName;
 
         File f = null;
-
         try{
-            f = in.getSaveFile(savePath);
-            inputJSONObject(f);
+
+            f = new File(savePath);
+            if(f.exists())
+            {
+                f = in.getSaveFile(savePath);
+                inputJSONObject(f);
+            }
+
         }catch(Exception e){
             System.out.println(e);
         }
