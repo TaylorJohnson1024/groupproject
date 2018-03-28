@@ -54,7 +54,7 @@ public class ReadingsJSONAdaptor {
      */
     public Reading switchJSONObjectToReading(JSONObject reading)
     {
-        String clinic_id = reading.get("clinic_id").toString();
+        String clinic_id = ""; //reading.get("clinic_id").toString();  <-- Must not have a value for clinic id
         String patient_id = reading.get("patient_id").toString();
         String type = reading.get("reading_type").toString();
         String reading_id = reading.get("reading_id").toString();
