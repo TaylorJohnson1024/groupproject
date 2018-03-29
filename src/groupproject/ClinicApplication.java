@@ -219,6 +219,7 @@ public class ClinicApplication extends Application{
                 else if(i == patientList.size()-1)
                 {
                    addPatient(-1,  patient_id, reading);
+                   i ++;
                 }
             }
     	}
