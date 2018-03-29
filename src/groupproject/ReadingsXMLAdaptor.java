@@ -3,7 +3,7 @@ package groupproject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
+import java.util.Date;
 import java.util.ArrayList;
 
 public class ReadingsXMLAdaptor {
@@ -46,9 +46,12 @@ public class ReadingsXMLAdaptor {
                         if(clinic_id == null)
                         {
                             clinic_id = data.getAttributes().getNamedItem("id").getNodeValue();
-                        }else
+                        }else if(patient_id != null && type != null && value != null)
                         {
                             AddReadingToList();
+                            clinic_id = data.getAttributes().getNamedItem("id").getNodeValue();
+                        }else{
+                            setAllDataNull();
                             clinic_id = data.getAttributes().getNamedItem("id").getNodeValue();
                         }
                         break;
@@ -57,7 +60,7 @@ public class ReadingsXMLAdaptor {
                         {
                             type = data.getAttributes().getNamedItem("type").getNodeValue();
                             reading_id = data.getAttributes().getNamedItem("id").getNodeValue();
-                        }else if(patient_id != null) //ensure there is a patient ID before adding a Reading.
+                        }else if(patient_id != null && value != null) //ensure there is a patient ID before adding a Reading.
                         {
                             AddReadingToList();
                             type = data.getAttributes().getNamedItem("type").getNodeValue();
@@ -73,7 +76,7 @@ public class ReadingsXMLAdaptor {
                         if(value == null)
                         {
                             value = data.getTextContent();
-                        }else if(patient_id != null) //ensure there is a patient ID before adding a Reading.
+                        }else if(patient_id != null && type != null) //ensure there is a patient ID before adding a Reading.
                         {
                             AddReadingToList();
                             value = data.getTextContent();
@@ -87,9 +90,12 @@ public class ReadingsXMLAdaptor {
                         if(patient_id == null)
                         {
                             patient_id = data.getTextContent();
-                        }else
+                        }else if(type != null && value != null)
                         {
                             AddReadingToList();
+                            patient_id = data.getTextContent();
+                        }else {
+                            setAllDataNull();
                             patient_id = data.getTextContent();
                         }
                         break;
@@ -124,9 +130,7 @@ public class ReadingsXMLAdaptor {
      */
     private void AddReadingToList()
     {
-        // !! Remove me when we figure out a way to generate dates for xml files !!
-        date = "1515354694451";
-        // !! Remove me when we figure out a way to generate dates for xml files !!
+        Date date = new Date();
         
         thisReading = new  Reading(patient_id, clinic_id, type, reading_id, value, date);
         readingArrayList.add(thisReading);

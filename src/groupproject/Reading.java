@@ -1,7 +1,6 @@
 package groupproject;
 
-import java.sql.Date;
-
+import java.util.Date;
 import java.util.Random;
 
 public class Reading {
@@ -55,27 +54,52 @@ public class Reading {
 	// =================================setters===================
 
 	public void setClinic(String clinic){
-		this.clinic = clinic;
+		if(clinic == null){
+			this.clinic = "";
+		}else{
+			this.clinic = clinic;
+		}
 	}
 
 	public void setPatientID(String id) {
-		patientID = id;
+		if(id == null) {
+			this.patientID = "";
+		}else {
+			patientID = id;
+		}
 	}
 
 	public void setRType(String type) {
-		rType = type;
+		if(type == null) {
+			rType = "";
+		}else {
+			rType = type;
+		}
 	}
 
 	public void setRId(String id) {
-		rId = id;
+		if(id == null) {
+			rId = "";
+		}else {
+			rId = id;
+		}
 	}
 
 	public void setRValue(String value) {
-		rValue = value;
+		if(value == null){
+			rValue = "";
+		}else {
+			rValue = value;
+		}
 	}
 
 	public void setRDate(Date date) {
-		rDate = date;
+		if(date == null) {
+			rDate = new Date();
+		}else{
+			rDate = date;
+		}
+
 	}
 
 	/*
@@ -83,8 +107,13 @@ public class Reading {
 	 * value.
 	 */
 	public void setRDate(String date) {
-		Long L = new Long(date);
-		rDate = new Date(L);
+		if(date == null){
+			rDate = new Date();
+		}else {
+			Long L = new Long(date);
+			rDate = new Date(L);
+		}
+
 	}
 
 	// =================================getters===================

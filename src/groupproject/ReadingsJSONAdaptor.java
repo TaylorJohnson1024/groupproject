@@ -6,7 +6,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -31,12 +31,6 @@ public class ReadingsJSONAdaptor {
     public ArrayList<Reading> switchJSONArrayToReadings(JSONArray patientReadings)
     {
         ArrayList<Reading> readingArrayList = new ArrayList<Reading>();
-        String clinic_id = null;
-        String patient_id = null;
-        String type = null;
-        String reading_id = null;
-        String value = null;
-        String date = null;
 
         for(Object rawReading: patientReadings)
         {
