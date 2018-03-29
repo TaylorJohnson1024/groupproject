@@ -52,15 +52,19 @@ public class Output
             reading_date = String.valueOf(dataParser.get("reading_date"));
 
             patientReading.put("patient_id", patient_id);
-            reading.put("reading_id", reading_id);
-            reading.put("reading_type", reading_type);
-            reading.put("reading_value", reading_value);
-            reading.put("reading_date", reading_date);
+            patientReading.put("reading_id", reading_id);
+            patientReading.put("reading_type", reading_type);
+            patientReading.put("reading_value", reading_value);
+            patientReading.put("reading_date", reading_date);
 
-            patientReading.put("reading", reading);
+            //reading.put("reading_id", reading_id);
+            //reading.put("reading_type", reading_type);
+            //reading.put("reading_value", reading_value);
+            //reading.put("reading_date", reading_date);
+            //patientReading.put("reading", reading);
 
             eachReadingArray.add(patientReading);
-            allPatientReadings.put("readings", eachReadingArray);
+            allPatientReadings.put("patient_readings", eachReadingArray);
         }
         //write output to file
         writeOutputToFile(allPatientReadings);
