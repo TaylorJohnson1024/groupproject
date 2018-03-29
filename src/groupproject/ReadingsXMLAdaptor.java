@@ -39,6 +39,7 @@ public class ReadingsXMLAdaptor {
             Node data = nodeList.item(i);
             if (data.getNodeType() == Node.ELEMENT_NODE) {
                 // do something with the current element
+
                 switch(data.getNodeName())
                 {
                     case "Clinic":
@@ -97,6 +98,7 @@ public class ReadingsXMLAdaptor {
                             setAllDataNull();
                             patient_id = data.getTextContent();
                         }
+                        AddReadingToList();
                         break;
                 }
 
