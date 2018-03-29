@@ -38,7 +38,7 @@ public class Output
         JSONObject allPatientReadings = new JSONObject();
         JSONArray eachReadingArray = new JSONArray();
 
-        String patient_id, reading_id, reading_type, reading_value, reading_date;
+        String patient_id, reading_id, reading_type, reading_value, reading_date, clinic_id;
         while (iterator.hasNext())
         {
             JSONObject dataParser = (JSONObject) iterator.next();
@@ -50,12 +50,14 @@ public class Output
             reading_type = String.valueOf(dataParser.get("reading_type"));
             reading_value = String.valueOf(dataParser.get("reading_value"));
             reading_date = String.valueOf(dataParser.get("reading_date"));
+            clinic_id = String.valueOf(dataParser.get("clinic_id"));
 
             patientReading.put("patient_id", patient_id);
             patientReading.put("reading_id", reading_id);
             patientReading.put("reading_type", reading_type);
             patientReading.put("reading_value", reading_value);
             patientReading.put("reading_date", reading_date);
+            patientReading.put("clinic_id", clinic_id);
 
             //reading.put("reading_id", reading_id);
             //reading.put("reading_type", reading_type);
@@ -81,7 +83,7 @@ public class Output
         HashMap<Integer, List<JSONObject>> allPatientReadings = new HashMap<>();
 
         Iterator iterator = patientReadings.iterator();
-        String reading_id, reading_type, reading_value, reading_date;
+        String reading_id, reading_type, reading_value, reading_date, clinic_id;
         int patient_id;
         while (iterator.hasNext())
         {
@@ -93,12 +95,14 @@ public class Output
             reading_type = String.valueOf(dataParser.get("reading_type"));
             reading_value = String.valueOf(dataParser.get("reading_value"));
             reading_date = String.valueOf(dataParser.get("reading_date"));
+            clinic_id = String.valueOf(dataParser.get("clinic_id"));
 
             JSONObject reading = new JSONObject();
             reading.put("reading_id", reading_id);
             reading.put("reading_type", reading_type);
             reading.put("reading_value", reading_value);
             reading.put("reading_date", reading_date);
+            reading.put("clinic_id", clinic_id);
 
             //check if patient_id already exist and append the record
             if (!allPatientReadings.containsKey(patient_id))

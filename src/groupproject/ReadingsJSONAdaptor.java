@@ -24,9 +24,9 @@ public class ReadingsJSONAdaptor {
     //==================================JSONToReading========================================
 
     /*
-    * Converts a JSONArray into an Arraylist of Readings,
-    * and returns the ArrayList of Readings.
-    *
+     * Converts a JSONArray into an Arraylist of Readings,
+     * and returns the ArrayList of Readings.
+     *
      */
     public ArrayList<Reading> switchJSONArrayToReadings(JSONArray patientReadings)
     {
@@ -48,7 +48,12 @@ public class ReadingsJSONAdaptor {
      */
     public Reading switchJSONObjectToReading(JSONObject reading)
     {
-        String clinic_id = ""; //reading.get("clinic_id").toString();  <-- Must not have a value for clinic id
+        String clinic_id = "";
+        try{ clinic_id = reading.get("clinic_id").toString();
+        }catch (NullPointerException e){
+       
+        }
+         //reading.get("clinic_id").toString();  <-- Must not have a value for clinic id
         String patient_id = reading.get("patient_id").toString();
         String type = reading.get("reading_type").toString();
         String reading_id = reading.get("reading_id").toString();
