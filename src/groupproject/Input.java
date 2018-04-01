@@ -48,6 +48,7 @@ import org.json.simple.parser.ParseException;
 
         this.inFile = fc.getSelectedFile();
 
+
         // If there is no file selected, then exit gracefully
         if (inFile == null) {
 
@@ -58,10 +59,6 @@ import org.json.simple.parser.ParseException;
             if (reply == JOptionPane.YES_OPTION)
             {
                 fileChooser();
-            }
-            else    // exit the program
-            {
-                System.exit(0);
             }
         }
 
