@@ -29,33 +29,18 @@ import static javafx.application.Application.launch;
  */
 public class ClinicApplication extends Application{
 
+    private static final String saveName = "savedData.json";
     /*
      * Used to keep track of the patients in the trial.
      */
     static ArrayList<Patient> patientList = new ArrayList<Patient>();
-
     //Used to store the path of the save file.
     private static String savePath;
-    private static final String saveName = "savedData.json";
-
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-
-
-            Parent root = FXMLLoader.load(getClass().getResource("ClinicApplication.fxml"));
-            primaryStage.setScene(new Scene(root, 683, 473));
-            primaryStage.show();
-
-
-    }
-
-
-
 
     /**
-     * 
+     *
      * main Class, calls getInput and setOutput.
-     * 
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException
@@ -106,14 +91,15 @@ public class ClinicApplication extends Application{
         in.fileChooser();
         String fileType = in.getFileType();
 
-        if(fileType.equalsIgnoreCase("json"))
-        {
-            inputJSONObject(in.getFile());
-        }else if(fileType.equalsIgnoreCase("xml"))
-        {
-            inputXML(in.getFile());
-        }
-
+        try {
+            if(fileType.equalsIgnoreCase("json"))
+            {
+                inputJSONObject(in.getFile());
+            }else if(fileType.equalsIgnoreCase("xml"))
+            {
+                inputXML(in.getFile());
+            }
+        } catch (NullPointerException e) { /* This is here in case the user decides to close the filechooser dialog */ }
     }
 
     /*
@@ -166,13 +152,13 @@ public class ClinicApplication extends Application{
         output.parseJSONAndExportAllReadings(out);
         output.displayPatientReadings(out);
     }
-    
+
     /**
      * Adds the given reading to the correct patient.
      * A new patient is added if none with the id from
      * the given Reading match any existing id in
      * patientList.
-     * 
+     *
      * @param reading
      */
     public static void addReading(Reading reading)
@@ -188,7 +174,7 @@ public class ClinicApplication extends Application{
     	 * looking for a patient with a matching ID.
     	 * If none is found with the same id it adds
     	 * a new patient. The patients are added with
-    	 * there id's sorted from least to greatest. 
+    	 * there id's sorted from least to greatest.
     	 */
     	if(patientList.isEmpty())
     	{
@@ -209,9 +195,9 @@ public class ClinicApplication extends Application{
                     i = patientList.size();
 
                     /*
-                     * adds a new patient to the end of 
+                     * adds a new patient to the end of
                      * patientList if all of patientList
-                     * has been checked and readings id 
+                     * has been checked and readings id
                      * is greater than every other id in
                      * patientList.
                      */
@@ -229,7 +215,7 @@ public class ClinicApplication extends Application{
      * Adds a new patient with the Reading at the given index.
      * The new patient is added to the end of patientList if the
      * index is less than 0 (usually -1).
-     * 
+     *
      * @param index
      * @param patient_id
      * @param reading
@@ -238,7 +224,7 @@ public class ClinicApplication extends Application{
     {
     	Patient newP = new Patient( patient_id, true);
     	newP.addReading(reading);
-    	
+
     	if(index < 0)
     	{
             patientList.add(newP);
@@ -246,6 +232,14 @@ public class ClinicApplication extends Application{
     	{
             patientList.add(index, newP);
     	}
-    	
+
+    }
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+
+            Parent root = FXMLLoader.load(getClass().getResource("ClinicApplication.fxml"));
+            primaryStage.setScene(new Scene(root, 683, 473));
+            primaryStage.show();
     }
 }
