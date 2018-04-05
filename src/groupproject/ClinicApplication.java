@@ -16,18 +16,17 @@ import static javafx.application.Application.launch;
 
 /**
  * Contains main. Gets the input from Input as a JSONArray,
- * and adds the given readings to the appropriate patient in 
+ * and adds the given readings to the appropriate patient in
  * the patientList ArrayList. New patients are added to patientList
  * if there is not already a patient with a matching id.
- * 
- * @GroupName:					The Lucky Seven
+ *
+ * @GroupName: The Lucky Seven
  * @MainClass Author:           Christopher Neuman
  * @Input Author: 				Taylor Johnson
  * @Patient Author: 			Jacob Fulton
  * @Output Author:              Zinet Kemal
- * 
  */
-public class ClinicApplication extends Application{
+public class ClinicApplication extends Application {
 
     private static final String saveName = "savedData.json";
     /*
@@ -38,16 +37,14 @@ public class ClinicApplication extends Application{
     private static String savePath;
 
     /**
-     *
      * main Class, calls getInput and setOutput.
      *
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws FileNotFoundException
-    {
-        try{
+    public static void main(String[] args) throws FileNotFoundException {
+        try {
             loadSavedData();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -56,94 +53,89 @@ public class ClinicApplication extends Application{
         exportAllReadings();
     }
 
-    private static void loadSavedData()
-    {
+    private static void loadSavedData() {
         Input in = new Input();
         //sets savePath as the directory name the program is stored in.
         savePath = System.getProperty("user.dir");
         savePath += "/src/" + saveName;
 
         File f = null;
-        try{
+        try {
 
             f = new File(savePath);
-            if(f.exists())
-            {
+            if (f.exists()) {
                 f = in.getSaveFile(savePath);
                 inputJSONObject(f);
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
 
     }
 
     /*
-    * opens the File chooser and calls inputJSONObject
-    * if the file is of type json, or inputXML if the
-    * file is of type xml. If the file is neither json
-    * or XML then nothing is done with it.
+     * opens the File chooser and calls inputJSONObject
+     * if the file is of type json, or inputXML if the
+     * file is of type xml. If the file is neither json
+     * or XML then nothing is done with it.
      */
-    public static void inputChooser()
-    {
+    public static void inputChooser() {
         Input in = new Input();
         in.fileChooser();
         String fileType = in.getFileType();
 
         try {
-            if(fileType.equalsIgnoreCase("json"))
-            {
+            if (fileType.equalsIgnoreCase("json")) {
                 inputJSONObject(in.getFile());
-            }else if(fileType.equalsIgnoreCase("xml"))
-            {
+            } else if (fileType.equalsIgnoreCase("xml")) {
                 inputXML(in.getFile());
             }
         } catch (NullPointerException e) { /* This is here in case the user decides to close the filechooser dialog */ }
     }
 
-    /*
-     * Takes the input of a JSON File
-     * and converts it into Reading objects.
+    /**
+     * Take the input of a JSON File
+     * and voncerts it into Reading Objects
+     *
+     * @param inFile -- The file that's being parsed into Reading Objects
      */
-    public static void inputJSONObject(File inFile)
-    {
+    public static void inputJSONObject(File inFile) {
         ReadingsJSONAdaptor adpt = new ReadingsJSONAdaptor();
         ParserJSON p = new ParserJSON(inFile);
         ArrayList<Reading> patientReadings = adpt.switchJSONArrayToReadings(p.getJSONArray("patient_readings"));
 
-        for(Reading reading: patientReadings)
-        {
+        for (Reading reading : patientReadings) {
             addReading(reading);
         }
     }
 
-    /*
-    * Takes the input of an XML File
-    * and converts it into Reading objects.
+    /**
+     * Takes the input of an XML File
+     * and converts it into Reading Ojbects.
+     *
+     * @param inFile -- The file that's being parsed into Reading Objects
      */
-    public static void inputXML(File inFile)
-    {
+    public static void inputXML(File inFile) {
         ReadingsXMLAdaptor adpt = new ReadingsXMLAdaptor();
         ParserXML p = new ParserXML(inFile);
         ArrayList<Reading> patientReadings = adpt.switchXMLToReadings(p.getXMLDocument());
 
-        for(Reading reading: patientReadings)
-        {
+        for (Reading reading : patientReadings) {
             addReading(reading);
         }
     }
 
-    /*
-    * Converts all readings to a JSONArray, and exports
-    * them to the JSON save file.
+    /**
+     * Converts all readings to a JSONArray, and exports
+     * them to the JSON save file.
+     *
+     * @throws FileNotFoundException
      */
-    public static void exportAllReadings() throws FileNotFoundException
-    {
+    public static void exportAllReadings() throws FileNotFoundException {
         ReadingsJSONAdaptor adpt = new ReadingsJSONAdaptor();
         ArrayList<Reading> outReadings = new ArrayList<Reading>();
-        for(Patient patient: patientList)
-        {
+        for (Patient patient : patientList) {
             outReadings.addAll(patient.getReadings());
         }
 
@@ -161,37 +153,29 @@ public class ClinicApplication extends Application{
      *
      * @param reading
      */
-    public static void addReading(Reading reading)
-    {
+    public static void addReading(Reading reading) {
         int patient_id;
         patient_id = Integer.parseInt((String) reading.getPatientID());
 
-    	/*
-    	 * checks if the patientList is empty
-    	 * if it is it adds a new patient to it
-    	 * with the reading as its parameter.
-    	 * Otherwise it cycles through patientList
-    	 * looking for a patient with a matching ID.
-    	 * If none is found with the same id it adds
-    	 * a new patient. The patients are added with
-    	 * there id's sorted from least to greatest.
-    	 */
-    	if(patientList.isEmpty())
-    	{
-            addPatient(0, patient_id,  reading);
-    	}
-        else
-    	{
-            for(int i = 0; i < patientList.size(); i++)
-            {
-                if(patientList.get(i).getId() == patient_id)
-                {
-                        patientList.get(i).addReading(reading);
-                        i = patientList.size();
-                }
-                else if(patientList.get(i).getId() < patient_id)
-                {
-                    addPatient(i,  patient_id, reading);
+        /*
+         * checks if the patientList is empty
+         * if it is it adds a new patient to it
+         * with the reading as its parameter.
+         * Otherwise it cycles through patientList
+         * looking for a patient with a matching ID.
+         * If none is found with the same id it adds
+         * a new patient. The patients are added with
+         * there id's sorted from least to greatest.
+         */
+        if (patientList.isEmpty()) {
+            addPatient(0, patient_id, reading);
+        } else {
+            for (int i = 0; i < patientList.size(); i++) {
+                if (patientList.get(i).getId() == patient_id) {
+                    patientList.get(i).addReading(reading);
+                    i = patientList.size();
+                } else if (patientList.get(i).getId() < patient_id) {
+                    addPatient(i, patient_id, reading);
                     i = patientList.size();
 
                     /*
@@ -201,16 +185,14 @@ public class ClinicApplication extends Application{
                      * is greater than every other id in
                      * patientList.
                      */
-                }
-                else if(i == patientList.size()-1)
-                {
-                   addPatient(-1,  patient_id, reading);
-                   i ++;
+                } else if (i == patientList.size() - 1) {
+                    addPatient(-1, patient_id, reading);
+                    i++;
                 }
             }
-    	}
+        }
     }
-    
+
     /**
      * Adds a new patient with the Reading at the given index.
      * The new patient is added to the end of patientList if the
@@ -220,26 +202,23 @@ public class ClinicApplication extends Application{
      * @param patient_id
      * @param reading
      */
-    public static void addPatient(int index, int  patient_id, Reading reading)
-    {
-    	Patient newP = new Patient( patient_id, true);
-    	newP.addReading(reading);
+    public static void addPatient(int index, int patient_id, Reading reading) {
+        Patient newP = new Patient(patient_id, true);
+        newP.addReading(reading);
 
-    	if(index < 0)
-    	{
+        if (index < 0) {
             patientList.add(newP);
-    	}else
-    	{
+        } else {
             patientList.add(index, newP);
-    	}
+        }
 
     }
-    
-    @Override
-    public void start(Stage primaryStage) throws Exception{
 
-            Parent root = FXMLLoader.load(getClass().getResource("ClinicApplication.fxml"));
-            primaryStage.setScene(new Scene(root, 683, 473));
-            primaryStage.show();
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+        Parent root = FXMLLoader.load(getClass().getResource("ClinicApplication.fxml"));
+        primaryStage.setScene(new Scene(root, 683, 473));
+        primaryStage.show();
     }
 }

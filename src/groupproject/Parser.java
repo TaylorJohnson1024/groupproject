@@ -15,10 +15,18 @@ abstract public class Parser {
      */
     abstract void parseObject();
 
+    /**
+     * Sets inFile to the passed parameter File f
+     *
+     * @param f -- the file that inFile will be set to
+     */
     public void setInFile(File f) {
         this.inFile = f;
     }
 
+    /**
+     * @return -- the File inFile
+     */
     public File getInFile() {
         return inFile;
     }

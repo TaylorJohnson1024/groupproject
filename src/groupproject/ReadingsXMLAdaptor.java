@@ -10,7 +10,6 @@ public class ReadingsXMLAdaptor {
 
     private ArrayList<Reading> readingArrayList;
     private Reading thisReading;
-
     private String clinic_id;
     private String patient_id;
     private String type;
@@ -18,16 +17,18 @@ public class ReadingsXMLAdaptor {
     private String value;
     private String date;
 
-    public ReadingsXMLAdaptor()
-    {
 
-    }
+    /**
+     * Constructor method for ReadingsXMLAdaptor
+     */
+    public ReadingsXMLAdaptor() { }
 
-
-    /*
-     * Converts an XML into an Arraylist of Readings,
-     * and returns the ArrayList of Readings.
+    /**
+     * Converts an XML into an ArrayList of Readings
+     * and returns the ArrayList of Readings
      *
+     * @param patientReadings
+     * @return -- an ArrayList of Readings objects
      */
     public ArrayList<Reading> switchXMLToReadings(Document patientReadings)
     {
@@ -104,14 +105,12 @@ public class ReadingsXMLAdaptor {
 
             }
         }
-
-
         return readingArrayList;
     }
 
-    /*
-    * sets all Strings back to null
-    * except for clinic_id.
+    /**
+     * Sets all Strings back to null
+     * except for clinic_id
      */
     private void setAllDataNull()
     {
@@ -122,7 +121,7 @@ public class ReadingsXMLAdaptor {
         date = null;
     }
 
-    /*
+    /**
      * Inserts the data from all of the
      * Strings  into a new Reading Object,
      * adds that Reading to readingArrayList,
