@@ -40,8 +40,7 @@ public class ParserXML extends Parser {
             // https://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
             doc.getDocumentElement().normalize();
             this.selectedXMLDocument = doc;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

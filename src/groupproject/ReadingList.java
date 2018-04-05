@@ -9,23 +9,34 @@ public class ReadingList {
 
     private ObservableList<Reading> readings;
 
-    //Constructor
-    public ReadingList(){
+    /**
+     * Constructor method for ReadingList
+     */
+    public ReadingList() {
         readings = FXCollections.observableArrayList();
     }
 
-    //method to return the Observable List
+    /**
+     * @return -- the ObservableList of Readings
+     */
     public ObservableList<Reading> getReadings() {
 
         return readings;
     }
 
-    //takes a reading as input, and adds it to the observable list
-    public void addReading(Reading reading){
+    /**
+     * Add a reading to the observable list with the passed parameter
+     *
+     * @param reading -- Reading variable representing a the reading to be added to the observable list
+     */
+    public void addReading(Reading reading) {
         readings.add(reading);
     }
 
-    public void clear(){
+    /**
+     * Clear the observable list
+     */
+    public void clear() {
         this.readings.clear();
     }
 

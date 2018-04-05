@@ -14,19 +14,21 @@ import java.util.LinkedList;
  * Adaptor for changing JSONArrays into
  * ArrayLists, and vise versa.
  */
+
 public class ReadingsJSONAdaptor {
 
-    ReadingsJSONAdaptor()
-    {
-
-    }
+    /**
+     * Constructor method for ReadingsJSONAdaptor
+     */
+    ReadingsJSONAdaptor() { }
 
     //==================================JSONToReading========================================
-
-    /*
-     * Converts a JSONArray into an Arraylist of Readings,
-     * and returns the ArrayList of Readings.
+    /**
+     * Converts a JSONArray into an ArrayList of Readings
+     * and returns the ArrayList of Readings
      *
+     * @param patientReadings
+     * @return
      */
     public ArrayList<Reading> switchJSONArrayToReadings(JSONArray patientReadings)
     {
@@ -40,11 +42,12 @@ public class ReadingsJSONAdaptor {
         }
         return readingArrayList;
     }
-
-    /*
-     * Converts a JSONObject into a Reading,
-     * and returns Reading.
+    /**
+     * Converts a JSONObject into a Reading
+     * and returns the Reading
      *
+     * @param reading
+     * @return
      */
     public Reading switchJSONObjectToReading(JSONObject reading)
     {
@@ -66,11 +69,12 @@ public class ReadingsJSONAdaptor {
 
 
     //========================================ReadingToJSON==================================================
-
-    /*
-     * Converts an Arraylist of Readings into a JSONArray,
-     * and returns the JSONArray.
+    /**
+     * Converst an ArrayList of Readings into a JSONArray
+     * and returns the JSON Array
      *
+     * @param readingArrayList
+     * @return
      */
     public JSONArray readingArrayListToJSONArray(ArrayList<Reading> readingArrayList)
     {
@@ -87,10 +91,12 @@ public class ReadingsJSONAdaptor {
         return readings;
     }
 
-    /*
-     * Converts a Reading into a JSONObject,
-     * and returns the JSONObject.
+    /**
+     * Converts a Reading into a JSONObject
+     * and returns the JSONObject
      *
+     * @param readingObject
+     * @return
      */
     public JSONObject readingToJSONObject(Reading readingObject)
     {

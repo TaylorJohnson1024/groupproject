@@ -6,6 +6,7 @@ package groupproject;
     contains ReadingList of all added readings
 
  */
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,11 +15,11 @@ import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.util.ArrayList;
 
-
-
+/**
+ * @author Jacob Fulton
+ */
 
 public class ClinicApplicationController {
-
 
 
     //===============Labels=========
@@ -41,7 +42,7 @@ public class ClinicApplicationController {
     @FXML
     private TableColumn<Reading, String> readingIDColumn;
 
-   //===============TextFields===================
+    //===============TextFields===================
     @FXML
     private TextField clinicField;
     @FXML
@@ -65,11 +66,11 @@ public class ClinicApplicationController {
     //Creates a ReadingList object to populate the Table
     ReadingList readingList = new ReadingList();
 
-    public ReadingList getReadingList(){
+    public ReadingList getReadingList() {
         return readingList;
     }
 
-    public void initialize(){
+    public void initialize() {
 
         bloodPressureRButton.setToggleGroup(readingValueGroup);
         stepsRButton.setToggleGroup(readingValueGroup);
@@ -87,9 +88,7 @@ public class ClinicApplicationController {
 
     }
 
-
-
-    public void handleAddReadingButton(){
+    public void handleAddReadingButton() {
         boolean isValid = true;
         String clinic = "";
         String patientID = "";
@@ -99,13 +98,13 @@ public class ClinicApplicationController {
 
         //Makes sure that all data fields are populated.
         //If all data fields are populated, the values are set to the variables.
-        if(clinicField.getText().isEmpty()){
+        if (clinicField.getText().isEmpty()) {
             isValid = false;
-        }else if(patientIDField.getText().isEmpty()){
+        } else if (patientIDField.getText().isEmpty()) {
             isValid = false;
-        }else if(readingValueField.getText().isEmpty()){
+        } else if (readingValueField.getText().isEmpty()) {
             isValid = false;
-        }else {
+        } else {
 
             clinic = clinicField.getText();
             patientID = patientIDField.getText();
@@ -125,7 +124,7 @@ public class ClinicApplicationController {
         }
 
         //only adds a new reading object & refreshes table if all data fields are populated.
-        if(checkTrial() == true) {
+        if (checkTrial() == true) {
             if (isValid == true) {
 
                 readingList.addReading(new Reading(patientID, clinic, readingType, readingValue, date));
@@ -141,32 +140,35 @@ public class ClinicApplicationController {
 
     }
 
-
-    //refreshes the table.
-    public void refreshTable(){
+    /**
+     * Refreshes the table
+     */
+    public void refreshTable() {
         table.setItems(readingList.getReadings());
     }
 
-
-    //Loads all readings from the patientList in main.
-    public void loadReadings(){
+    /**
+     * Loads all readings from the patientList in main
+     */
+    public void loadReadings() {
         readingList.clear();
-        for(int i = 0; i < ClinicApplication.patientList.size(); i++){
+        for (int i = 0; i < ClinicApplication.patientList.size(); i++) {
             ArrayList<Reading> readings = ClinicApplication.patientList.get(i).getReadings();
-            for(int q = 0; q < readings.size() ; q++){
+            for (int q = 0; q < readings.size(); q++) {
                 readingList.addReading(readings.get(q));
             }
         }
         refreshTable();
     }
 
-
-    //Checks if a patient is in a trial using an ID retrieved from the textField: patientIDField
-    //returns true if a patient is in a trial, or if a patient is not found.
-    //Returns false if a patient is not in a trial.
-    public boolean checkTrial(){
+    /**
+     * Checks if patient is in a trial using an id retrieved from the textField: patientIDField
+     *
+     * @return -- boolean value true if patient is in a trial or if patient is not found; false if patient is not in a trial
+     */
+    public boolean checkTrial() {
         boolean inTrial = true;
-        if(!patientIDField.getText().isEmpty()) {
+        if (!patientIDField.getText().isEmpty()) {
             try {
                 int id = Integer.parseInt(patientIDField.getText());
                 int pos = searchPatient(id);
@@ -175,7 +177,7 @@ public class ClinicApplicationController {
                         inTrial = false;
                     }
                 }
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 statusLabel.setText("Patient ID must be numerical");
                 inTrial = false;
             }
@@ -183,65 +185,68 @@ public class ClinicApplicationController {
         return inTrial;
     }
 
-
-    //Loads a file, and retrieves all readings from the patientList in main.
-    public void importFile(){
+    /**
+     * Loads a file, and retrives all readings from the patientList in main
+     */
+    public void importFile() {
         ClinicApplication.inputChooser();
         loadReadings();
     }
 
-
-    //Checks if a patient is in a trial.
-    // If the patient is not in a trial: sets inTrial to true.
-    public void startTrial(){
-        if(!patientIDField.getText().isEmpty()) {
+    /**
+     * Checks if the patient is in a trial
+     * If the patient is not in a trial, sets inTrial to true
+     */
+    public void startTrial() {
+        if (!patientIDField.getText().isEmpty()) {
             int id = Integer.parseInt(patientIDField.getText());
             int pos = searchPatient(id);
-            if(pos != -1) {
+            if (pos != -1) {
                 if (ClinicApplication.patientList.get(pos).isInTrial() == false) {
                     ClinicApplication.patientList.get(pos).setInTrial(true);
                     statusLabel.setText("trial for Patient with ID: " + id + " has started.");
                 }
-            }else {
+            } else {
                 statusLabel.setText("patient not found");
             }
-        }else{
+        } else {
             statusLabel.setText("no patient ID entered");
         }
     }
 
-
-    //Checks if a patient is in a trial.
-    // If the patient is in a trial: sets inTrial to false.
-    public void endTrial(){
-        if(!patientIDField.getText().isEmpty()) {
+    /**
+     * Checks if a patient is in a trial
+     * If the patient is in a trial, sets inTrial to false
+     */
+    public void endTrial() {
+        if (!patientIDField.getText().isEmpty()) {
             int id = Integer.parseInt(patientIDField.getText());
             int pos = searchPatient(id);
-            if(pos != -1) {
+            if (pos != -1) {
                 if (ClinicApplication.patientList.get(pos).isInTrial() == true) {
                     ClinicApplication.patientList.get(pos).setInTrial(false);
                     statusLabel.setText("Trial for Patient with ID: " + id + " has ended.");
                 }
-            }else{
+            } else {
                 statusLabel.setText("patient not found");
             }
-        }else{
+        } else {
             statusLabel.setText("no patient ID entered");
         }
     }
 
-
-    //A method to return the index of a patient based on the patientID.
-    public int searchPatient(int i){
+    /**
+     * @param i -- int variable representing a patient's id
+     * @return -- the position of the patient with the patient id that matches the passed parameter
+     */
+    public int searchPatient(int i) {
 
         int pos = -1;
-        for(int p = 0; p < ClinicApplication.patientList.size(); p++) {
-           if(ClinicApplication.patientList.get(p).getId() == i ){
-                    pos = p;
-           }
+        for (int p = 0; p < ClinicApplication.patientList.size(); p++) {
+            if (ClinicApplication.patientList.get(p).getId() == i) {
+                pos = p;
+            }
         }
         return pos;
     }
-
-
 }
